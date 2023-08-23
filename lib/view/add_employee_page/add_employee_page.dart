@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_toastr/flutter_toastr.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
@@ -138,23 +140,31 @@ class _AddEmployeePageState extends State<AddEmployeePage> {
                 saveAction: () {
                   FocusManager.instance.primaryFocus?.unfocus();
 
-                  if (appController.editMode == true) {
-                    print('mooc');
-
-                    appController.updateEmployee(
-                        employeeName.text.toString(),
-                        role.text.toString(),
-                        today.text.toString(),
-                        noDate.text.toString());
-                    appController.editMode = false;
-                    appController.update();
+                  if (employeeName.text == '' ||
+                      role.text == '' ||
+                      today.text == '' ||
+                      noDate.text == '') {
+                    HapticFeedback.lightImpact();
+                    FlutterToastr.show(fieldRequiredMessage, context,
+                        backgroundColor: Colors.redAccent,
+                        duration: FlutterToastr.lengthLong,
+                        position: FlutterToastr.bottom);
                   } else {
-                    print('meh');
-                    appController.insertDatabase(
-                        employeeName.text.toString(),
-                        role.text.toString(),
-                        today.text.toString(),
-                        noDate.text.toString());
+                    if (appController.editMode == true) {
+                      appController.updateEmployee(
+                          employeeName.text.toString(),
+                          role.text.toString(),
+                          today.text.toString(),
+                          noDate.text.toString());
+                      appController.editMode = false;
+                      appController.update();
+                    } else {
+                      appController.insertDatabase(
+                          employeeName.text.toString(),
+                          role.text.toString(),
+                          today.text.toString(),
+                          noDate.text.toString());
+                    }
                   }
                 },
                 dateLabelStatus: false,

@@ -42,7 +42,7 @@ TextStyle primaryButtonTextStyle = GoogleFonts.roboto(
 );
 
 //Text
-const String fieldRequiredMessage = "Field is required";
+const String fieldRequiredMessage = "All field is required";
 
 //Heights
 const height5 = SizedBox(height: 5);

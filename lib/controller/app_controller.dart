@@ -104,7 +104,6 @@ class AppMainController extends GetxController {
 
     await database.execute("CREATE TABLE previous_employees(empName TEXT, "
         "role TEXT, startDate TEXT, endDate TEXT)");
-    print('tables created');
   }
 
   ///Insert data into the database
@@ -113,7 +112,6 @@ class AppMainController extends GetxController {
     Database db = await setDatabase();
     db.rawInsert('INSERT INTO employees(empName, role, startDate, endDate)'
         ' VALUES("$empName", "$role", "$startDate", "$endDate")');
-    print('employee Inserted');
     getData();
     Get.offAll(() => const HomePage(), transition: Transition.cupertino);
   }
@@ -124,24 +122,19 @@ class AppMainController extends GetxController {
     db.rawInsert(
         'INSERT INTO previous_employees(empName, role, startDate, endDate)'
         ' VALUES("$empName", "$role", "$startDate", "$endDate")');
-    print('previous_employees Inserted');
     getData();
   }
 
   deleteEmployee(String employeeName) async {
-    print("Delete $employeeName");
     Database db = await setDatabase();
     await db.rawDelete('DELETE FROM employees WHERE empName = "$employeeName"');
-    print('employee Deleted');
     getPreviousData();
   }
 
   deletePreviousEmployee(String employeeName) async {
-    print("Delete $employeeName");
     Database db = await setDatabase();
     await db.rawDelete(
         'DELETE FROM previous_employees WHERE empName = "$employeeName"');
-    print('employee Deleted');
     getPreviousData();
   }
 
@@ -149,7 +142,6 @@ class AppMainController extends GetxController {
   Future<List<Map<String, dynamic>>?> getData() async {
     Database db = await setDatabase();
     data = await db.query("employees");
-    print('data from table$data');
 
     return data;
   }
@@ -158,7 +150,6 @@ class AppMainController extends GetxController {
   Future<List<Map<String, dynamic>>?> getPreviousData() async {
     Database db = await setDatabase();
     previousData = await db.query("previous_employees");
-    print('data from table$previousData');
     return previousData;
   }
 
@@ -167,7 +158,6 @@ class AppMainController extends GetxController {
     Database db = await setDatabase();
     await db.rawUpdate(
         'UPDATE employees SET empName = "$empName", role = "$role", startDate = "$startDate", endDate = "$endDate" WHERE empName = "$employeeName"');
-    print('employee Updated');
 
     getData();
     Get.offAll(const HomePage(), transition: Transition.cupertino);
@@ -177,6 +167,5 @@ class AppMainController extends GetxController {
     Database db = await setDatabase();
     await db.rawDelete('DELETE FROM employees');
     await db.rawDelete('DELETE FROM previous_employees');
-    print('All records cleared from the employees table');
   }
 }

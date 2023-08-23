@@ -134,7 +134,6 @@ class PreviousEmployeeTile extends StatelessWidget {
 
   final Map<String, dynamic>? employee;
   final int index;
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {

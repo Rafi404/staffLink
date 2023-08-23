@@ -110,7 +110,7 @@ class SecondaryField extends StatelessWidget {
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             prefixIcon: const Icon(
-              Icons.person_2_outlined,
+              Icons.work_outline,
               color: primaryColor,
               size: 20,
             ),
